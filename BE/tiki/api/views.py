@@ -14,6 +14,10 @@ def search(request):
 
     # Start with all books
     books = Book.objects.all()
+    if query:
+        books = books.filter(name__icontains=query)
+        serializer = BookSerializer(books, many=True)
+        return Response(serializer.data)
 
     # Filter by seller if provided
     if seller:
@@ -27,19 +31,13 @@ def search(request):
     if vote:
         books = books.filter(rating_average__gte=vote)
 
-    # Filter by query if provided
-    if query:
-        books = books.filter(name__icontains=query)
-
     # Sort by price if specified
     if sort_price is not None:
         if sort_price.lower() == 'true':
-            books = books.order_by('-list_price')  # High to low
+            books = books.order_by('-list_price')
         else:
-            books = books.order_by('list_price')   # Low to high
+            books = books.order_by('list_price')  
 
-    # Serialize the queryset
     serializer = BookSerializer(books, many=True)
 
-    # Return the serialized data as a JSON response
     return Response(serializer.data)
