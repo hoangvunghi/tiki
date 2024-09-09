@@ -7,8 +7,8 @@ function CartItem(props) {
     const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
-        if (props.book.current_seller && props.book.current_seller.price !== null) {
-            setPrice(props.book.current_seller.price);
+        if (props.book.original_price && props.book.original_price !== null) {
+            setPrice(props.book.original_price);
         } else {
             setPrice(0);
         }

@@ -7,8 +7,8 @@ function BookBuy(props) {
     const [totalAmount, setTotalAmount] = useState(0);
 
     useEffect(() => {
-        if (props.book.current_seller && props.book.current_seller.price !== null) {
-            setPrice(props.book.current_seller.price);
+        if (props.book.list_price && props.book.list_price !== null) {
+            setPrice(props.book.price);
         } else {
             setPrice(0);
         }

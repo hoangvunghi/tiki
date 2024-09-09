@@ -6,11 +6,11 @@ import BookDes from "../bookDes";
 import BookInfoLarge from "../bookInfoLarge";
 import BookInfoSmall from "../bookInfoSmall";
 import BookLarge from "../bookLarge";
+import bookApi from "../../api/book";
 
 function BookDetail(props) {
 
-    const [books, setBooks] = useState([]);
-    const [selectedBook, setSelectedBook] = useState({});
+    const [books, setBooks] = useState();
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
@@ -18,11 +18,8 @@ function BookDetail(props) {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('https://h5ltj4-8080.csb.app/books');
-            // const response = await fetch('https://giang05072003.github.io/books/books.json');
-            const data = await response.json();
-    
-            setBooks(data);
+            const response = await bookApi.getDetailBook(id);
+            setBooks(response);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -33,15 +30,7 @@ function BookDetail(props) {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const book = books.find(book => book.id === parseInt(id, 10)) || {};
-        setSelectedBook(book);
-    }, [id, books]);
-
-
-    useEffect(() => {
-    }, [selectedBook]);
-
+    
 
     
     return (
@@ -52,7 +41,7 @@ function BookDetail(props) {
                         <img src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif" alt="" />
                     </div>
                 ) : (
-                    Object.keys(selectedBook).length === 0 ? (
+                    Object.keys(books).length === 0 ? (
                         <div className='flex flex-1 my-5 mx-40 gap-4 max-[768px]:mx-2'>
                             <div className='flex flex-1 items-center justify-center my-52 font-bold text-lg'>
                                 <p>Không tìm thấy sản phẩm!</p>
@@ -60,13 +49,13 @@ function BookDetail(props) {
                         </div>
                     ) : (
                         <div className="grid grid-cols-3 my-5 gap-4 mx-40 max-[768px]:mx-2 max-[768px]:grid-cols-1">
-                            <BookLarge book={selectedBook}/>
+                            <BookLarge book={books}/>
                             <div className="flex flex-col gap-2">
-                                <BookInfoLarge book={selectedBook} />
-                                <BookInfoSmall book={selectedBook} />
-                                <BookDes book={selectedBook} />
+                                <BookInfoLarge book={books} />
+                                <BookInfoSmall book={books} />
+                                <BookDes book={books} />
                             </div>
-                            <BookBuy book={selectedBook} onAddToCart={props.onAddToCart} />
+                            <BookBuy book={books} onAddToCart={props.onAddToCart} />
                         </div>
                     )
                 )}

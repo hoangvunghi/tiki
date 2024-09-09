@@ -1,7 +1,7 @@
 import CartItem from "../cartItem"
 
 function CartDetail(props) {
-
+    console.log(props.cartData)
     return (
         <>
             <div className="flex bg-[#efefef]">

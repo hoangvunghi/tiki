@@ -66,7 +66,7 @@ function BookSmall(props) {
                                     <sup>₫</sup>
                                 </div>
                                     <div className="bg-neutral-200 text-[12px] px-1 h-5 rounded-lg justify-center">
-                                        -{ Math.floor(Math.random() * 15)}%
+                                        -{bookData.percent}%
                                     </div>
                             </div>
                         </div>

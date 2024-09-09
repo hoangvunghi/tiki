@@ -24,10 +24,9 @@ function BookInfoLarge(props) {
     const ratingAverage = props.book.rating_average || 0;
     const numberOfStars = Math.floor(ratingAverage);
     const numberOfNotStars = 5 - numberOfStars;
-
     // Tính toán Price
     const listPrice = props.book.list_price || 0;
-    const currentSellerPrice = props.book.current_seller ? props.book.current_seller.price : 0;
+    const currentSellerPrice = props.book.list_price ? props.book.list_price : 0;
     const percentage = ((100 - (currentSellerPrice / listPrice) * 100)).toFixed(0)
 
     const quantityText = props.book.quantity_sold ? props.book.quantity_sold.text : "Đã bán 0";
@@ -53,7 +52,7 @@ function BookInfoLarge(props) {
                             <div className="font-semibold mr-1">{ratingAverage}</div>
                             <div className="flex">
                                 {[...Array(numberOfStars)].map((_, index) => (
-                                    <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg key={index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clipPath="url(#a)">
                                         <path
                                             d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
