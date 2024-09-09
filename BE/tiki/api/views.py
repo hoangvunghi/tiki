@@ -41,3 +41,9 @@ def search(request):
     serializer = BookSerializer(books, many=True)
 
     return Response(serializer.data)
+
+@api_view(['GET'])
+def book_detail(request, pk):
+    book = Book.objects.get(pk=pk)
+    serializer = BookSerializer(book)
+    return Response(serializer.data)
