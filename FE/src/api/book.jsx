@@ -1,14 +1,14 @@
 import axiosClient from "./axios";
 
 const bookApi = {
-  getAllBook(){
+  getAllBook(params) {
     const url = '/search/';
-    return axiosClient.get(url);
+    return axiosClient.get(url, {params});
   },
-  getDetailBook(id){
+  getDetailBook(id) {
     const url = `/book/${id}`;
     return axiosClient.get(url);
   },
 }
- 
+
 export default bookApi;

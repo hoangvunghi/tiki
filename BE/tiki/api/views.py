@@ -3,6 +3,8 @@ from .models import Category, Seller, Image, Book
 from rest_framework.response import Response
 from .serializers import CategorySerializer, SellerSerializer, ImageSerializer, BookSerializer
 from rest_framework.decorators import api_view
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 @api_view(['GET'])
 def search(request):
@@ -11,36 +13,53 @@ def search(request):
     sort_price = request.GET.get('sort', None)
     vote = request.GET.get('vote', 0)
     query = request.GET.get('query', None)
+    page = request.GET.get('page', 1)
+    page_size = request.GET.get('page_size', 10)
 
-    # Start with all books
     books = Book.objects.all()
+
     if query:
         books = books.filter(name__icontains=query)
-        serializer = BookSerializer(books, many=True)
-        return Response(serializer.data)
 
-    # Filter by seller if provided
     if seller:
-        books = books.filter(current_seller__name__icontains=seller)
+        seller_names = seller.split(',')
+        query = Q()
+        for name in seller_names:
+            query |= Q(current_seller__name__icontains=name.strip())
+        books = books.filter(query)
 
-    # Filter by category if provided
     if category:
         books = books.filter(categories__name__icontains=category)
 
-    # Filter by vote if provided
     if vote:
         books = books.filter(rating_average__gte=vote)
 
-    # Sort by price if specified
     if sort_price is not None:
         if sort_price.lower() == 'true':
-            books = books.order_by('-price')
+            books = books.order_by('-current_seller__price')
         else:
-            books = books.order_by('price')  
+            books = books.order_by('current_seller__price')
 
-    serializer = BookSerializer(books, many=True)
+    paginator = Paginator(books, page_size)
 
-    return Response(serializer.data)
+    try:
+        paginated_books = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_books = paginator.page(1)
+    except EmptyPage:
+        paginated_books = paginator.page(paginator.num_pages)
+
+    serializer = BookSerializer(paginated_books, many=True)
+
+    return Response({
+        'books': serializer.data,
+        'page': paginated_books.number,
+        'total_pages': paginator.num_pages,
+        'total_books': paginator.count,
+        'has_next': paginated_books.has_next(),
+        'has_previous': paginated_books.has_previous(),
+    })
+
 
 @api_view(['GET'])
 def book_detail(request, pk):
