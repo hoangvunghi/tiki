@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Filter from '../filter';
 import Page from '../page';
 import BookMain from '../bookMain';
+import bookApi from '../../api/book';
 
 function Home(props) {
 
@@ -16,11 +17,8 @@ function Home(props) {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('https://h5ltj4-8080.csb.app/books');
-            // const response = await fetch('https://giang05072003.github.io/books/books.json');
-            const data = await response.json();
-    
-            setBooks(data);
+            const response = await bookApi.getAllBook();
+            setBooks(response);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);

@@ -176,7 +176,7 @@ function Filter(props) {
                     <div className={`flex p-1 ${selectedStar === '5' ? 'text-sky-700' : 'text-black'} hover:cursor-pointer hover:text-sky-700`} onClick={() => handleSelectStar('5')}>
                         <div className="flex items-center mr-2">
                             {[...Array(5)].map((_, index) => (
-                                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg key={index+index+index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#a)">
                                     <path
                                         d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
@@ -199,7 +199,7 @@ function Filter(props) {
                         <div className="flex items-center mr-2">
                             {/* Load Star Gold*/}
                             {[...Array(4)].map((_, index) => (
-                                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg key={index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#a)">
                                     <path
                                         d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
@@ -216,7 +216,7 @@ function Filter(props) {
 
                             {/* Load Star not Gold*/}
                             {[...Array(1)].map((_, index) => (
-                                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg key={index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#a)">
                                     <path
                                         d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
@@ -239,7 +239,7 @@ function Filter(props) {
                         <div className="flex items-center mr-2">
                             {/* Load Star Gold*/}
                             {[...Array(3)].map((_, index) => (
-                                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg key={index+index+index+index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#a)">
                                     <path
                                         d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
@@ -256,7 +256,7 @@ function Filter(props) {
 
                             {/* Load Star not Gold*/}
                             {[...Array(2)].map((_, index) => (
-                                <svg width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg key={index} width="12" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#a)">
                                     <path
                                         d="M6.448 2.029a.5.5 0 0 0-.896 0L4.287 4.59l-2.828.41a.5.5 0 0 0-.277.854l2.046 1.994-.483 2.816a.5.5 0 0 0 .726.528L6 9.863l2.53 1.33a.5.5 0 0 0 .725-.527l-.483-2.817 2.046-1.994a.5.5 0 0 0-.277-.853L7.713 4.59 6.448 2.029Z"
