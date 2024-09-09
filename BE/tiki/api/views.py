@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 def search(request):
     seller = request.GET.get('seller', None)
     category = request.GET.get('category', None)
-    sort_price = request.GET.get('sort_price', None)
+    sort_price = request.GET.get('sort', None)
     vote = request.GET.get('vote', 0)
     query = request.GET.get('query', None)
 
@@ -34,9 +34,9 @@ def search(request):
     # Sort by price if specified
     if sort_price is not None:
         if sort_price.lower() == 'true':
-            books = books.order_by('-list_price')
+            books = books.order_by('-price')
         else:
-            books = books.order_by('list_price')  
+            books = books.order_by('price')  
 
     serializer = BookSerializer(books, many=True)
 
